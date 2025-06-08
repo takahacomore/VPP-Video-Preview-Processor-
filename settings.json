@@ -1,0 +1,16 @@
+{
+    "theme": "dark",
+    "language": "ru",
+    "ffmpeg_installed": true,
+    "active_prompt_category": "general",
+    "smart_search_enabled": false,
+    "very_smart_enabled": false,
+    "parallel_enabled": false,
+    "api_keys": [],
+    "scene_edit_detection": false,
+    "thumbnails_folder": "thumbnails",
+    "prompt_templates": {
+        "image_description": "Опиши что изображено на этом кадре. Ответ должен быть подробным, но не слишком длинным (до 200 символов).",
+        "smart_search": "Ответь на вопрос: {query}. Найди все релевантные изображения из списка {images}. Возвращай только список имен файлов, которые соответствуют запросу."
+    }
+}

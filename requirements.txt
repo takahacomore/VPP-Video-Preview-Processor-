@@ -1,0 +1,4 @@
+flet
+pymorphy2
+chardet
+rapidfuzz
