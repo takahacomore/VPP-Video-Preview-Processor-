@@ -90,9 +90,9 @@ VPP находится в **бета-версии**. Это значит, что
 - [GitHub-репозиторий](https://github.com/takahacomore/VPP-Video-Preview-Processor-)
 - [Сайт проекта](https://www.takahacomore.ru/programs/program/Video%20Preview%20Processor)
 
-**Видеоинструкция:**  
+**Инструкция:**  
 - [Смотреть на Яндекс.Диске](https://disk.yandex.ru/i/bF4yNY2HkOnjGQ)
-- [Текстовая инструкция](https://www.takahacomore.ru/static/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F.pdf)
+- [Читать в PDF](https://www.takahacomore.ru/static/%D0%98%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F.pdf)
 > В бета-версии программа запускается с консолью.
 
 ---
