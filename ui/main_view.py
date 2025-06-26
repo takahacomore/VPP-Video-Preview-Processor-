@@ -16,8 +16,9 @@ from modules.search_manager import (
 )
 from modules.enhanced_neural_processor import start_enhanced_neural_processing, stop_enhanced_neural_processing
 from ui.image_view import create_image_view
-from modules.settings_manager import load_settings
+from modules.settings_manager import load_settings, get_server_enabled, set_server_enabled
 from modules.update_core import get_current_version, load_update_manifest, compare_versions
+from modules.server_manager import start_server, stop_server
 
 logger = logging.getLogger(__name__)
 
@@ -75,54 +76,8 @@ def create_main_view(page, on_settings=None, on_favorites=None):
 
 
 
-    def check_and_show_update_popup(page):
-        from modules.update_core import (
-            get_current_version,
-            load_update_manifest,
-            compare_versions,
-            get_update_description,
-            get_files_to_update,
-        )
-        from modules.updater import perform_update
-        import threading
-        from ui.update_popup import open_popup, close_popup
-    
-        print("🔍 settings_view.check_and_show_update_popup вызван")
-    
-        manifest = load_update_manifest()
-        if not manifest:
-            open_popup(page, "Не удалось загрузить информацию об обновлении.", on_yes=None)
-            return
-    
-        if compare_versions(get_current_version(), manifest["version"]):
-            description = get_update_description(manifest)
-            message = (
-                f"Доступна новая версия {manifest['version']}.\n\n"
-                f"{description}\n\n"
-                "Обновить сейчас?"
-            )
-    
-            def on_yes(e):
-                # Закрываем первоначальный диалог
-                close_popup(page)
-    
-                def do_update():
-                    # Скачиваем и накатываем обновления
-                    files = get_files_to_update(manifest)
-                    perform_update(files)
-                    # Показываем финальный диалог с инструкцией
-                    open_popup(
-                        page,
-                        "✅ Обновления установлены.\n\nПожалуйста, перезапустите программу.",
-                        on_yes=None
-                    )
-    
-                # Запускаем скачивание в фоновом потоке, чтобы UI не блокировался
-                threading.Thread(target=do_update, daemon=True).start()
-    
-            open_popup(page, message, on_yes)
-        else:
-            open_popup(page, "Установлена последняя версия.", on_yes=None)
+    def check_and_show_update_popup_async(page):
+        threading.Thread(target=check_and_show_update_popup, args=(page,), daemon=True).start()
 
     
     def load_model_async():
@@ -162,7 +117,7 @@ def create_main_view(page, on_settings=None, on_favorites=None):
         # Показываем диалог выбора файлов
         pick_files_dialog.pick_files(
             allow_multiple=True,
-            allowed_extensions=["mp4", "avi", "mov", "mkv", "mxf", "webm"]
+            allowed_extensions=["mp4", "avi", "mov", "mkv", "mxf", "webm", "mkv", "ts", "mts"]
         )
 
     def on_select_directory(e):
@@ -176,7 +131,7 @@ def create_main_view(page, on_settings=None, on_favorites=None):
                 selected_directory = e.path
                 video_files_text.value = f"Выбрана папка: {os.path.basename(selected_directory)}"
                 has_selected_files = True
-                set_status(f"�� Выбрана папка: {os.path.basename(selected_directory)}", loading=False)
+                set_status(f"📂 Выбрана папка: {os.path.basename(selected_directory)}", loading=False)
                 page.update()
         
         pick_directory_dialog = ft.FilePicker(on_result=pick_directory_result)
@@ -196,7 +151,7 @@ def create_main_view(page, on_settings=None, on_favorites=None):
         icon=ft.icons.SYSTEM_UPDATE,
         tooltip="Обновление доступно!",
         visible=False,
-        on_click=lambda e: check_and_show_update_popup(page)
+        on_click=lambda e: check_and_show_update_popup_async(page)
     )
 
 # в appbar.append(update_icon) — и потом вызвать maybe_add_update_icon()
@@ -610,11 +565,52 @@ def create_main_view(page, on_settings=None, on_favorites=None):
         value=load_settings().get("theme", "dark") == "light",
         on_change=on_theme_toggle
     )    
+    def on_server_toggle(e):
+        enabled = e.control.value
+        set_server_enabled(enabled)
+        if enabled:
+            start_server()
+            page.snack_bar = ft.SnackBar(content=ft.Text("Сервер запущен"))
+        else:
+            stop_server()
+            page.snack_bar = ft.SnackBar(content=ft.Text("Сервер остановлен"))
+        page.snack_bar.open = True
+        page.update()
+
+    server_switch = ft.Switch(
+        value=get_server_enabled(),
+        label="API сервер",
+        on_change=on_server_toggle
+    )
+
+    # --- Новый кликабельный копирайт ---
+    def on_copyright_click(e):
+        page.launch_url("https://www.takahacomore.ru/about/")
+
+    copyright_link = ft.TextButton(
+        content=ft.Text(
+            "©takahacomore",
+            size=12,
+            color="grey",
+            italic=True
+        ),
+        on_click=on_copyright_click,
+        style=ft.ButtonStyle(
+            padding=ft.padding.only(left=10),
+            overlay_color=ft.colors.TRANSPARENT,
+        )
+    )
+
     # Создаем AppBar для страницы, если его еще нет
     if not page.appbar:
 
         page.appbar = ft.AppBar(
-            title=ft.Text("Video Processor"),
+            leading=ft.Icon(ft.icons.VIDEO_CAMERA_BACK_ROUNDED),
+            leading_width=40,
+            title=ft.Row([
+                ft.Text("Video Processor"),
+                copyright_link  # Добавляем копирайт
+            ]),
             center_title=False,
             bgcolor=ft.colors.SURFACE_VARIANT,
             actions=[
@@ -623,6 +619,7 @@ def create_main_view(page, on_settings=None, on_favorites=None):
                         ft.Icon(name=ft.icons.DARK_MODE),
                         theme_switch,
                         ft.Icon(name=ft.icons.LIGHT_MODE),
+                        server_switch,
                     ],
                     spacing=5,
                 ),                                  

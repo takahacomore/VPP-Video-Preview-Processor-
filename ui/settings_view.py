@@ -361,6 +361,17 @@ def create_settings_view(page, on_back=None):
         category_switches[key] = switch
         category_row.controls.append(switch)
        
+    # --- Новая кнопка для связи ---
+    def on_contact_click(e):
+        page.launch_url("https://t.me/+1eMX83XrfDMzOWRi")
+
+    contact_button = ft.TextButton(
+        text="Связаться с разработчиком",
+        icon=ft.icons.SEND_ROUNDED,
+        on_click=on_contact_click,
+        style=ft.ButtonStyle(color=ft.colors.BLUE_400)
+    )
+
     # Компоновка интерфейса
     settings_container = ft.Container(
         content=ft.Column([
@@ -374,7 +385,10 @@ def create_settings_view(page, on_back=None):
                 ft.Text("Категория промпта", style="titleMedium"),
                 category_row,
                 api_section,
-
+                ft.Row(
+                    controls=[contact_button],
+                    alignment=ft.MainAxisAlignment.CENTER
+                )
             ], scroll=ft.ScrollMode.AUTO, spacing=10, expand=True),
         ], spacing=20, expand=True),
         padding=20,
