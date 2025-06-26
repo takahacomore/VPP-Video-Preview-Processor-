@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPP Search</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Поиск по видеоархиву</h1>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Введите запрос...">
+            <button id="search-button">Искать</button>
+            <button id="mode-image" title="Показать только изображения" class="mode-btn">🖼️</button>
+            <button id="mode-text" title="Показать только текст" class="mode-btn">🔊</button>
+        </div>
+        <div id="results-container">
+            <!-- Результаты поиска будут здесь -->
+        </div>
+    </div>
+
+    <!-- Adobe CEP Library -->
+    <script type="text/javascript" src="./js/libs/CSInterface.js"></script>
+    <!-- Main application script -->
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+</html> 
