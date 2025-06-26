@@ -125,7 +125,7 @@ VPP находится в **бета-версии**. Это значит, что
 
 ## ✅ 1. Установка с помощью VPPsetup.exe
 
-[Скачать VPPsetup.exe](https://viewing.takahacomore.ru/share/N7QvLLs8)
+[Скачать VPPsetup.exe](https://drive.google.com/file/d/1VxO_v4WsTA_WHQVWCJ311LmycYOxfucD/view?usp=sharing)
 
 Установщик автоматически настраивает компоненты и создаёт ярлык на рабочем столе.  
 При запуске скачиваются Python и FFmpeg, создаётся структура программы.
@@ -134,7 +134,7 @@ VPP находится в **бета-версии**. Это значит, что
 
 ## ⚙️ 2. Портативная версия (VPPLauncher.exe)
 
-[Скачать VPPLauncher.exe](https://viewing.takahacomore.ru/share/EJ62JsXL)
+[Скачать VPPLauncher.exe](https://drive.google.com/file/d/1XG3Qf8HlLylzUBepkFzokT0QqsnIjGAT/view?usp=drive_link)
 
 Поместите файл в отдельную папку.  
 При запуске скачиваются компоненты, Python и FFmpeg, создаётся структура программы.  
