@@ -146,8 +146,6 @@ VPP находится в **бета-версии**. Это значит, что
 
 ```bash
 git clone https://github.com/takahacomore/VPP-Video-Preview-Processor-.git
-cd VPP
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+cd VPP-Video-Preview-Processor-
 pip install -r requirements.txt
 python app_main.py
