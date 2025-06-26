@@ -90,3 +90,12 @@ def update_settings(settings_update):
 
     
     return settings
+
+def get_server_enabled():
+    settings = load_settings()
+    return settings.get("server_enabled", True)
+
+def set_server_enabled(value: bool):
+    settings = load_settings()
+    settings["server_enabled"] = value
+    save_settings(settings)
