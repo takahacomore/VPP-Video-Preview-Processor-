@@ -2,3 +2,5 @@ flet
 pymorphy2
 chardet
 rapidfuzz
+Flask
+Flask-Cors

@@ -24,7 +24,7 @@ VSVersionInfo(
           StringStruct('LegalCopyright', '© 2025 Andrey'),
           StringStruct('OriginalFilename', 'DesktopImageProcessor.exe'),
           StringStruct('ProductName', 'DesktopImageProcessor'),
-          StringStruct('ProductVersion', '1.1.5')
+          StringStruct('ProductVersion', '1.1.6')
         ]
       )
     ]),
