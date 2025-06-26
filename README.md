@@ -9,7 +9,7 @@
   Поместите папку `premiere_pro_plugin` по пути:  
   `C:\Users\ВАШЕИМЯ\AppData\Roaming\Adobe\CEP\extensions`  
 – Для работы плагина необходимо включить **API-сервис** (переключатель находится рядом с настройкой темы)  
-– У программы появилась своя группа в Telegram: [https://t.me/+1eMX83XrfDMzOWRi](https://t.me/+1eMX83XrfDMzOWRi)
+– У программы появилась своя группа в  [Telegram](https://t.me/+1eMX83XrfDMzOWRi)
 
 🔹 **Планы на следующее обновление:**  
 – Добавление английской локализации интерфейса  
